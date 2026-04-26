@@ -6,7 +6,7 @@ from actions.camera import camera
 from actions.vision_tools import vision_describe, describe_saved_image, describe_last_image, describe_saved_video
 from actions.media_viewer import open_file_async
 
-
+# Central tool registry used by controller to map parsed actions to execution functions
 TOOLS = {
     "write_note": lambda args: write_note(args),
     "read_note": lambda args: read_notes(),
