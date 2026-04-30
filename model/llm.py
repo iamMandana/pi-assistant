@@ -15,9 +15,9 @@ class LLM:
         self.mode = "cloud"
 
         # LOCAL (OLLAMA)
-        self.LOCAL_MODEL = "gemma:2b-instruct"
+        #self.LOCAL_MODEL = "gemma:2b-instruct"
         #self.LOCAL_MODEL = "phi3:mini"
-        #self.LOCAL_MODEL = "qwen2:1.5b"
+        self.LOCAL_MODEL = "qwen2:1.5b"
         self.LOCAL_URL = "http://localhost:11434/api/chat"
 
         # CLOUD (GROQ)
