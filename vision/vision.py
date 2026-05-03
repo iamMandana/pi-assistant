@@ -11,7 +11,7 @@ class VisionModel:
         start = time.time()
 
         # Model selection
-        #self.MODE = "llava_cloud"
+        #self.MODE = "gemini_cloud"
         self.MODE = "blip_base"
         #self.MODE = "blip_large"
         #self.MODE = "git_base" 
@@ -44,7 +44,7 @@ class VisionModel:
             )
 
         # Cloud-based model
-        elif self.MODE == "llava_cloud":
+        elif self.MODE == "gemini_cloud":
             import google.generativeai as genai
             genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
@@ -79,7 +79,7 @@ class VisionModel:
                 return caption
 
             # Cloud inference
-            elif self.MODE == "llava_cloud":
+            elif self.MODE == "gemini_cloud":
                 return self._describe_with_cloud(image)
 
             else:
