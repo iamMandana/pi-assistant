@@ -179,8 +179,10 @@ def describe_saved_image(data):
 
     logger.set_model(vision_model.MODE)
     logger.set_mode("vision")
-
+    
+    t0 = time.time()
     caption = vision_model.describe(media["path"]).lower()
+    logger.log_vision(time.time() - t0)
 
     # Save into memory and history
     last_seen_caption = caption
@@ -311,7 +313,8 @@ def describe_saved_video(data):
             result.caption = describe_video(path)
         except Exception as e:
             result.error = str(e)
-
+    
+    t0 = time.time()
     t = threading.Thread(target=run_vision)
     t.start()
 
@@ -320,6 +323,8 @@ def describe_saved_video(data):
 
     # Wait for vision processing to complete
     t.join()
+    
+    logger.log_vision(time.time() - t0)
 
     print("[DEBUG] result.caption =", result.caption)
     print("[DEBUG] result.error =", result.error)
