@@ -87,6 +87,8 @@ def parse_command(user_input):
     math_text = normalize_math(u)
     if is_math_expression(math_text):
         return "calculate", math_text
+    if any(x in u for x in ["how", "tell me", "explain", "how to"]):
+        return None, None
 
     # High-priority memory query (must come before general "did you see" logic)
     if re.search(r"\bwhen\s+(did|have)\s+you\s+see\b", u):
@@ -162,7 +164,7 @@ def parse_command(user_input):
         return "vision_describe", None
 
     # Regex allows flexible phrasing
-    if re.search(r"\b(what|can|do)\b.*\bsee\b", u):
+    if re.search(r"\b(what do you see|what can you see|can you see|do you see)\b", u):
         return "vision_describe", None
 
     # Fallback vision trigger when user asks about presence without specifying media
