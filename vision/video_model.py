@@ -33,9 +33,15 @@ def extract_frames(video_path, num_frames=3):
         ret, frame = cap.read()
 
         if ret:
+            # Resize frame to reduce processing cost
+            frame = cv2.resize(frame, (640, 480))
+
             # Save temporary frame to disk
             path = f"/tmp/frame_{i}.jpg"
-            cv2.imwrite(path, frame)
+
+            # Save with compression to reduce file size
+            cv2.imwrite(path, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+
             frames.append(path)
 
     cap.release()
@@ -58,9 +64,20 @@ def convert_to_mp4(video_path):
         # Convert raw H264 stream to MP4 container using ffmpeg
         subprocess.run([
             "ffmpeg", "-y",
-            "-framerate", "30",
+
+            # Reduced FPS for smaller file and faster processing
+            "-framerate", "12",
+
             "-i", video_path,
+
+            # Reduce resolution while keeping aspect ratio
+            "-vf", "scale=640:-2",
+
             "-c:v", "libx264",
+
+            # Compression level (higher = smaller file, lower quality)
+            "-crf", "28",
+
             "-pix_fmt", "yuv420p",
             mp4_path
         ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
