@@ -211,7 +211,7 @@ In model/llm.py, find this line and replace with your key:
 client = Groq(api_key="YOUR_GROQ_API_KEY_HERE")
 ```
 
-##Contact
+## Contact
 Mandana Bakhshi
 Email: bakhshi.m2004@gmail.com
 
