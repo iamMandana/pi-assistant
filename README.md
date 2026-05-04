@@ -2,10 +2,6 @@
 
 A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversation, and system tools.
 
-![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-5-red)
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-
 ---
 
 ## Table of Contents
@@ -60,8 +56,8 @@ A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversa
 | **Board** | Raspberry Pi 5 (8GB RAM) |
 | **Storage** | 64GB microSD card (or larger) |
 | **Camera** | Raspberry Pi Camera Module 3 |
-| **Microphone** | USB microphone or I2S MEMS mic |
-| **Speaker** | 3.5mm jack speaker, HDMI monitor speakers, or I2S DAC |
+| **Microphone** | Bluetooth microphone |
+| **Speaker** | Bluetooth speaker |
 | **Optional** | Active cooling fan/case for sustained LLM use |
 
 ---
@@ -73,3 +69,7 @@ A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversa
 ```bash
 git clone [https://github.com/YOUR_USERNAME/pi-voice-assistant.git](https://github.com/iamMandana/AI-Voice-Assistant-on-Raspberry-Pi-5-with-Tool-Execution-and-Vision-Capabilities)
 cd pi-voice-assistant
+
+### 2. **System Dependencies**
+
+
