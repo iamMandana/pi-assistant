@@ -2,50 +2,58 @@ import cv2
 import os
 import time
 import subprocess
+from collections import Counter
 from vision.vision import vision_model
 
 
 def extract_frames(video_path, num_frames=3):
-    # Opens video file for frame extraction
+    # Open the video file for reading
     cap = cv2.VideoCapture(video_path)
 
-    # Total number of frames in video
+    # Get total number of frames in the video
     total = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    # If video metadata is invalid or unreadable, return empty
+    # If video metadata is invalid or unreadable, return empty list
     if total <= 0:
         cap.release()
         return []
 
-    # Select key frame positions
-    indices = [
-        int(total * 0.2),
-        int(total * 0.5),
-        int(total * 0.8)
-    ]
+    # Define fixed key frame positions (early, middle, late)
+    # These ratios provide basic temporal coverage of the video
+    ratios = [0.2, 0.5, 0.8]
+
+    # Convert ratios into actual frame indices
+    # Ensure indices do not exceed total frame count
+    indices = [int(total * r) for r in ratios if int(total * r) < total]
 
     frames = []
 
     for i, idx in enumerate(indices):
-        # Jump directly to selected frame index
+        # Move the video pointer to the selected frame index
         cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
 
+        # Read the frame at that position
         ret, frame = cap.read()
 
         if ret:
-            # Resize frame to reduce processing cost
+            # Resize frame to reduce processing cost for the vision model
             frame = cv2.resize(frame, (640, 480))
 
-            # Save temporary frame to disk
+            # Save frame temporarily to disk
             path = f"/tmp/frame_{i}.jpg"
 
-            # Save with compression to reduce file size
+            # Save with compression to reduce file size and I/O overhead
             cv2.imwrite(path, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
 
+            # Store the path for later processing
             frames.append(path)
 
+    # Release video resource
     cap.release()
+
+    # Return list of saved frame paths
     return frames
+
 
 
 def convert_to_mp4(video_path):
@@ -115,7 +123,7 @@ def describe_video(video_path):
 
     for frame in frames:
         # Hard time limit (prevents slow vision model from blocking system)
-        if time.time() - start_time > 10:
+        if time.time() - start_time > 20:
             print("[VIDEO] early stop: timeout")
             break
 
@@ -149,5 +157,27 @@ def describe_video(video_path):
     if not captions:
         return None
 
-    # Combine all frame captions into one result
-    return " ".join(captions)
+    # Find most common caption
+    most_common = Counter(captions).most_common(1)[0][0]
+
+    # Try to find additional useful detail
+    extra_detail = None
+    base_words = set(most_common.split())
+
+    for cap in captions:
+        if cap == most_common:
+            continue
+
+        words = set(cap.split())
+        new_words = words - base_words
+
+        # Only keep meaningful additions
+        if len(new_words) >= 2:
+            extra_detail = " ".join(new_words)
+            break
+
+    # Final output
+    if extra_detail:
+        return f"{most_common} with {extra_detail}"
+    else:
+        return most_common
