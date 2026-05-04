@@ -1,0 +1,12 @@
+numpy>=1.24.0
+opencv-python>=4.8.0
+Pillow>=10.0.0
+sounddevice>=0.4.6
+vosk>=0.3.45
+transformers>=4.36.0
+torch>=2.1.0
+torchvision>=0.16.0
+groq>=0.4.0
+requests>=2.31.0
+picamera2>=0.3.12
+google-generativeai>=0.3.0
