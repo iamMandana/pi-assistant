@@ -139,6 +139,8 @@ wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/me
     -P models/piper/
 ```
 
+---
+
 ## Configuration
 ### Vision Model Selection
 Open vision/vision.py and find the __init__ method of VisionModel. Uncomment one mode:
@@ -214,6 +216,8 @@ In model/llm.py, find this line and replace with your key:
 ```python
 client = Groq(api_key="YOUR_GROQ_API_KEY_HERE")
 ```
+
+---
 
 ## Contact
 Mandana Bakhshi
