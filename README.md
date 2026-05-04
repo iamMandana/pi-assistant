@@ -77,22 +77,22 @@ sudo apt install -y \
     vlc \
     feh \
     alsa-utils \
-    aplay \
     wireless-tools
 
-# Python build tools
+# Python build tools 
 sudo apt install -y \
     python3-pip \
     python3-venv \
     python3-dev \
     libatlas-base-dev \
-    libopenblas-dev
+    libopenblas-dev \
+    libcap-dev
 
 # Picamera2 (Raspberry Pi OS Bookworm)
 sudo apt install -y python3-picamera2
 
 # Piper TTS binary
-wget https://github.com/rhasspy/piper/releases/latest/download/piper_arm64.tar.gz
+wget https://sourceforge.net/projects/piper-tts.mirror/files/v1.0.0/piper_arm64.tar.gz/download -O piper_arm64.tar.gz
 tar -xzf piper_arm64.tar.gz
 sudo cp piper/piper /usr/local/bin/
 rm -rf piper piper_arm64.tar.gz
