@@ -145,7 +145,7 @@ Open vision/vision.py and find the __init__ method of VisionModel. Uncomment one
 ```python
 class VisionModel:
     def __init__(self):
-        # chose one model
+        # choose one model
         
         # Local – BLIP Base (fast, low RAM)
         self.MODE = "blip_base"
@@ -159,7 +159,7 @@ class VisionModel:
         # Cloud – Google Gemini (best accuracy, needs internet + API key)
         # self.MODE = "gemini_cloud"
 ```
-If you chose cloud:
+If you choose cloud:
 Create a .env file in the project root:
 ```bash
 nano .env
@@ -176,7 +176,7 @@ Open model/llm.py and find:
 ```python
 class LLM:
     def __init__(self, logger):
-        # chose one
+        # choose one
         
         # cloud – uses Groq API (fast, needs internet + API key)
         self.mode = "cloud"
@@ -184,7 +184,7 @@ class LLM:
         # Local – uses Ollama (offline, runs on Pi)
         # self.mode = "local"
 ```
-If you chose LOCAL:
+If you choose LOCAL:
 
 1. Install Ollama:
 
@@ -203,7 +203,7 @@ ollama pull qwen2:1.5b
 self.LOCAL_MODEL = "qwen2:1.5b"   # Change to your model
 ```
 
-If you chose CLOUD:
+If you choose CLOUD:
 
 1.Sign up at console.groq.com
 
