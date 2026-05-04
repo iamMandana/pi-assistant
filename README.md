@@ -14,7 +14,6 @@ A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversa
   - [3. Python Environment](#3-python-environment)
   - [4. Install Python Packages](#4-install-python-packages)
   - [5. Download Models](#5-download-models)
-  - [6. Enable Camera](#6-enable-camera)
 - [Configuration](#configuration)
   - [Vision Model Selection](#vision-model-selection)
   - [LLM Selection (Local vs Cloud)](#llm-selection-local-vs-cloud)
@@ -69,7 +68,109 @@ A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversa
 ```bash
 git clone [https://github.com/YOUR_USERNAME/pi-voice-assistant.git](https://github.com/iamMandana/AI-Voice-Assistant-on-Raspberry-Pi-5-with-Tool-Execution-and-Vision-Capabilities)
 cd pi-voice-assistant
+```
 
-### 2. **System Dependencies**
+### 2. System Dependencies
+Run these commands on your Raspberry Pi 5:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+
+# Audio and media
+sudo apt install -y \
+    portaudio19-dev \
+    python3-pyaudio \
+    ffmpeg \
+    vlc \
+    feh \
+    alsa-utils \
+    aplay \
+    wireless-tools
+
+# Python build tools
+sudo apt install -y \
+    python3-pip \
+    python3-venv \
+    python3-dev \
+    libatlas-base-dev \
+    libopenblas-dev
+
+# Picamera2 (Raspberry Pi OS Bookworm)
+sudo apt install -y python3-picamera2
+
+# Piper TTS binary
+wget https://github.com/rhasspy/piper/releases/latest/download/piper_arm64.tar.gz
+tar -xzf piper_arm64.tar.gz
+sudo cp piper/piper /usr/local/bin/
+rm -rf piper piper_arm64.tar.gz
+```
+
+### 3. Python Environment
+Always activate the virtual environment with source venv/bin/activate before running the assistant or installing packages.
+
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate
+
+# Upgrade pip
+pip install --upgrade pip setuptools wheel
+```
+### 4. Install Python Packages
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Download Models
+Vosk (Speech-to-Text)
+``` bash
+mkdir -p models
+
+# Download small English model (~40 MB)
+wget https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+unzip vosk-model-small-en-us-0.15.zip
+mv vosk-model-small-en-us-0.15 models/vosk
+rm vosk-model-small-en-us-0.15.zip
+```
+
+Piper (Text-to-Speech)
+```bash
+mkdir -p models/piper
+
+# Download voice model
+wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_US-lessac-medium.onnx \
+    -P models/piper/
+
+wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_US-lessac-medium.onnx.json \
+    -P models/piper/
+```
+
+## Configuration
+### Vision Model Selection
+Open vision/vision.py and find the __init__ method of VisionModel. Uncomment one mode:
+```python
+class VisionModel:
+    def __init__(self):
+        # chose one model
+        
+        # Local – BLIP Base (fast, low RAM)
+        self.MODE = "blip_base"
+        
+        # Local – BLIP Large (better accuracy, slower, more RAM)
+        # self.MODE = "blip_large"
+        
+        # Local – GIT Base (alternative model)
+        # self.MODE = "git_base"
+        
+        # Cloud – Google Gemini (best accuracy, needs internet + API key)
+        # self.MODE = "gemini_cloud"
+```
+
+
+
+
+
 
 
