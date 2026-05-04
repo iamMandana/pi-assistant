@@ -1,103 +1,75 @@
-# AI-Voice-Assistant-on-Raspberry-Pi-5-with-Tool-Execution-and-Vision-Capabilities
+# Pi Voice Assistant
 
-Real-time voice assistant with offline speech recognition, vision, and tool execution, designed for edge deployment.
+A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversation, and system tools.
+
+![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-5-red)
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## Quick Start (Recommended)
+## Table of Contents
 
-```bash
-git clone https://github.com/YOUR_USERNAME/voice-assistant.git
-cd voice-assistant
-
-python3 -m venv venv
-source venv/bin/activate
-
-pip install -r requirements.txt
-
-python main.py
+- [Features](#features)
+- [Hardware Required](#hardware-required)
+- [Installation](#installation)
+  - [1. Clone the Repo](#1-clone-the-repo)
+  - [2. System Dependencies](#2-system-dependencies)
+  - [3. Python Environment](#3-python-environment)
+  - [4. Install Python Packages](#4-install-python-packages)
+  - [5. Download Models](#5-download-models)
+  - [6. Enable Camera](#6-enable-camera)
+- [Configuration](#configuration)
+  - [Vision Model Selection](#vision-model-selection)
+  - [LLM Selection (Local vs Cloud)](#llm-selection-local-vs-cloud)
+  - [API Keys (Optional)](#api-keys-optional)
+- [Usage](#usage)
+  - [Start the Assistant](#start-the-assistant)
+  - [Wake Word](#wake-word)
+  - [All Commands](#all-commands)
+- [Project Structure](#project-structure)
+- [Troubleshooting](#troubleshooting)
+- [Contact](#contact)
+- [License](#license)
 
 ---
 
 ## Features
-```markdown
-- Wake word detection + speech interaction
-- Offline speech-to-text (Vosk)
-- Text-to-speech (Piper)
-- Vision-based scene description
-- Tool execution (camera, WiFi, notes, system info)
-- Local + cloud LLM support
-- Modular architecture
 
-## Hardware Requirements
-- Raspberry Pi 5 (8GB recommended)
-- Camera Module
-- Microphone
-- Speaker
+- **Wake Word Detection** – "Hey Pi" activates the assistant
+- **Speech-to-Text** – Offline Vosk model converts speech to text
+- **Text-to-Speech** – Piper TTS reads responses aloud
+- **Computer Vision** – Describe what the camera sees in real time
+- **Photo & Video Capture** – Take pictures and record video with auto-indexing
+- **Saved Media Description** – Ask questions about previously captured images/videos
+- **Vision Memory** – Ask "when did you see X?" to search past observations
+- **WiFi Scanning** – List available networks
+- **Public IP Lookup** – Get your public IP address
+- **Notes** – Write and read persistent notes
+- **System Health** – Read CPU temperature and free disk space
+- **Calculator** – Simple spoken math like "15 times 3"
+- **Conversational AI** – General chat with LLM (local via Ollama or cloud via Groq)
+- **Performance Logging** – All interactions logged to CSV with timing metrics
+
+---
+
+## Hardware Required
+
+| Component | Details |
+|-----------|---------|
+| **Board** | Raspberry Pi 5 (8GB RAM) |
+| **Storage** | 64GB microSD card (or larger) |
+| **Camera** | Raspberry Pi Camera Module 3 |
+| **Microphone** | USB microphone or I2S MEMS mic |
+| **Speaker** | 3.5mm jack speaker, HDMI monitor speakers, or I2S DAC |
+| **Optional** | Active cooling fan/case for sustained LLM use |
+
+---
 
 ## Installation
 
-sudo apt update && sudo apt upgrade -y
+### 1. Clone the Repo
 
-sudo apt install -y \
-    python3-pip python3-venv \
-    portaudio19-dev python3-pyaudio \
-    ffmpeg vlc feh iwlist alsa-utils \
-    libatlas-base-dev libopenblas-dev \
-    python3-picamera2
-
-
-### Download Models
-mkdir -p models
-
-# Vosk
-wget https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
-unzip vosk-model-small-en-us-0.15.zip
-mv vosk-model-small-en-us-0.15 models/vosk
-
-# Piper
-mkdir -p models/piper
-wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_US-lessac-medium.onnx -P models/piper/
-wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_US-lessac-medium.onnx.json -P models/piper/
-
-## Configuration
-
-GROQ_API_KEY=your_key_here
-GOOGLE_API_KEY=your_key_here
-
-### LLM Mode
-
-In model/llm.py:
-self.mode = "local"   # offline
-# self.mode = "cloud" # better quality
-
-### Vision Mode
-In vision/vision.py:
-self.MODE = "blip_base"      # local
-# self.MODE = "gemini_cloud" # cloud
-
-## Usage
-
-Run:
-python main.py
-
-Example commands:
-- "Hey Pi, what do you see?"
-- "Hey Pi, take a picture"
-...
-
-## 🧠 System Architecture
-
-(Add your diagram image here)
-
-## Project Structure
-
-audio/        # STT, TTS, wake word
-model/        # LLM + memory
-vision/       # vision models
-actions/      # tools
-controller/   # routing logic
-main.py       # entry point
-
-## 📄 License
-MIT License
+```bash
+git clone [https://github.com/YOUR_USERNAME/pi-voice-assistant.git](https://github.com/iamMandana/AI-Voice-Assistant-on-Raspberry-Pi-5-with-Tool-Execution-and-Vision-Capabilities)
+cd pi-voice-assistant
