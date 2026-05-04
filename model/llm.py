@@ -88,7 +88,7 @@ class LLM:
 
                 self.logger.set_model(self.CLOUD_MODEL)
 
-                client = Groq(api_key="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")
+                client = Groq(api_key="YOUR_API_KEY")
 
                 completion = client.chat.completions.create(
                     model=self.CLOUD_MODEL,
