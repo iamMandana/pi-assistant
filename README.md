@@ -185,6 +185,7 @@ class LLM:
         # self.mode = "local"
 ```
 If you chose LOCAL:
+
 1. Install Ollama:
 
 ```bash
@@ -203,8 +204,11 @@ self.LOCAL_MODEL = "qwen2:1.5b"   # Change to your model
 ```
 
 If you chose CLOUD:
+
 1.Sign up at console.groq.com
+
 2.Generate an API key
+
 In model/llm.py, find this line and replace with your key:
 
 ```python
@@ -213,6 +217,7 @@ client = Groq(api_key="YOUR_GROQ_API_KEY_HERE")
 
 ## Contact
 Mandana Bakhshi
+
 Email: bakhshi.m2004@gmail.com
 
 For bugs, feature requests, or questions, please contact me.
