@@ -58,9 +58,9 @@ A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversa
 ### 1. Clone the Repo
 
 ```bash
-git clone git clone https://github.com/iamMandana/AI-Voice-Assistant-on-Raspberry-Pi-5-with-Tool-Execution-and-Vision-Capabilities
+git clone git clone https://github.com/iamMandana/pi-assistant
 
-cd pi-voice-assistant
+cd pi-assistant
 ```
 
 ### 2. System Dependencies
