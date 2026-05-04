@@ -1,4 +1,4 @@
-# Pi Voice Assistant
+# AI Voice Assistant on Raspberry Pi 5
 
 A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversation, and system tools.
 
