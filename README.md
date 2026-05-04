@@ -17,15 +17,7 @@ A fully offline-capable voice assistant for Raspberry Pi 5 with vision, conversa
 - [Configuration](#configuration)
   - [Vision Model Selection](#vision-model-selection)
   - [LLM Selection (Local vs Cloud)](#llm-selection-local-vs-cloud)
-  - [API Keys (Optional)](#api-keys-optional)
-- [Usage](#usage)
-  - [Start the Assistant](#start-the-assistant)
-  - [Wake Word](#wake-word)
-  - [All Commands](#all-commands)
-- [Project Structure](#project-structure)
-- [Troubleshooting](#troubleshooting)
 - [Contact](#contact)
-- [License](#license)
 
 ---
 
@@ -167,9 +159,63 @@ class VisionModel:
         # Cloud – Google Gemini (best accuracy, needs internet + API key)
         # self.MODE = "gemini_cloud"
 ```
+If you chose cloud:
+Create a .env file in the project root:
+```bash
+nano .env
+```
+Add:
+```bash
+# Only needed if using gemini_cloud vision mode
+GOOGLE_API_KEY=your_actual_gemini_api_key
+```
 
+### LLM Selection (Local vs Cloud)
+Open model/llm.py and find:
 
+```python
+class LLM:
+    def __init__(self, logger):
+        # chose one
+        
+        # cloud – uses Groq API (fast, needs internet + API key)
+        self.mode = "cloud"
+        
+        # Local – uses Ollama (offline, runs on Pi)
+        # self.mode = "local"
+```
+If you chose LOCAL:
+1. Install Ollama:
 
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+2. Pull a lightweight model:
+
+```bash
+ollama pull qwen2:1.5b
+# Alternatives: phi3:mini, gemma:2b-instruct, tinyllama
+```
+3. Update model name in model/llm.py:
+
+```python
+self.LOCAL_MODEL = "qwen2:1.5b"   # Change to your model
+```
+
+If you chose CLOUD:
+1.Sign up at console.groq.com
+2.Generate an API key
+In model/llm.py, find this line and replace with your key:
+
+```python
+client = Groq(api_key="YOUR_GROQ_API_KEY_HERE")
+```
+
+##Contact
+Mandana Bakhshi
+Email: bakhshi.m2004@gmail.com
+
+For bugs, feature requests, or questions, please contact me.
 
 
 
