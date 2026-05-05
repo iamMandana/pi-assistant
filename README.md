@@ -103,7 +103,7 @@ Always activate the virtual environment with source venv/bin/activate before run
 
 ```bash
 # Create virtual environment
-python3 -m venv venv
+python3 -m venv venv --system-site-packages
 
 # Activate it
 source venv/bin/activate
@@ -115,7 +115,14 @@ pip install --upgrade pip setuptools wheel
 ```bash
 pip install -r requirements.txt
 ```
+Important:
+This project relies on system-installed NumPy for compatibility with Picamera2 and simplejpeg.
 
+Do NOT install or upgrade NumPy using pip, as this can cause binary incompatibility errors.
+If issues occur, run:
+```bash
+    pip uninstall numpy
+```    
 ### 5. Download Models
 Vosk (Speech-to-Text)
 ``` bash
