@@ -69,33 +69,32 @@ Run these commands on your Raspberry Pi 5:
 ```bash
 sudo apt update && sudo apt upgrade -y
 
-# Audio and media
+# Audio + system tools
 sudo apt install -y \
-    portaudio19-dev \
-    python3-pyaudio \
+    alsa-utils \
     ffmpeg \
     vlc \
     feh \
-    alsa-utils \
     wireless-tools
 
-# Python build tools 
+# Camera (REQUIRED)
+sudo apt install -y \
+    python3-libcamera \
+    libcamera-dev \
+    python3-picamera2
+
+# TTS dependency
+sudo apt install -y \
+    espeak-ng \
+    libespeak-ng1
+
+# Python build tools
 sudo apt install -y \
     python3-pip \
     python3-venv \
     python3-dev \
     libatlas-base-dev \
-    libopenblas-dev \
-    libcap-dev
-
-# Picamera2 (Raspberry Pi OS Bookworm)
-sudo apt install -y python3-picamera2
-
-# Piper TTS binary
-wget https://sourceforge.net/projects/piper-tts.mirror/files/v1.0.0/piper_arm64.tar.gz/download -O piper_arm64.tar.gz
-tar -xzf piper_arm64.tar.gz
-sudo cp piper/piper /usr/local/bin/
-rm -rf piper piper_arm64.tar.gz
+    libopenblas-dev
 ```
 
 ### 3. Python Environment
@@ -146,6 +145,18 @@ wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/me
 
 wget https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/lessac/medium/en_US-lessac-medium.onnx.json \
     -P models/piper/
+
+# Piper TTS Runtime
+
+# Download Piper runtime locally
+wget https://sourceforge.net/projects/piper-tts.mirror/files/v1.0.0/piper_arm64.tar.gz/download -O piper_arm64.tar.gz
+
+tar -xzf piper_arm64.tar.gz
+
+# Rename for project use
+mv piper piper_runtime
+
+rm piper_arm64.tar.gz
 ```
 
 ---
