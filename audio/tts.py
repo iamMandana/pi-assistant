@@ -13,7 +13,7 @@ def speak(text):
     # Start Piper TTS process
     # Outputs raw PCM audio to stdout
     piper = subprocess.Popen(
-        ["piper", "--model", MODEL_PATH, "--output-raw"],
+        ["./piper_runtime/piper", "--model", MODEL_PATH, "--output-raw"],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE
     )
