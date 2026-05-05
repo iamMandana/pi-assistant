@@ -120,8 +120,9 @@ This project relies on system-installed NumPy for compatibility with Picamera2 a
 
 Do NOT install or upgrade NumPy using pip, as this can cause binary incompatibility errors.
 If issues occur, run:
+
 ```bash
-    pip uninstall numpy
+pip uninstall numpy
 ```    
 ### 5. Download Models
 Vosk (Speech-to-Text)
